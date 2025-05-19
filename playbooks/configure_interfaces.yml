@@ -1,0 +1,34 @@
+- name: Configure interfaces and loopbacks
+  hosts: mpls_routers
+  gather_facts: no
+  tasks:
+
+    - name: vMX1 interface config
+      when: inventory_hostname == "vMX1"
+      junipernetworks.junos.junos_config:
+        lines:
+          - set interfaces ge-0/0/3 unit 0 family inet address 10.100.12.1/30
+          - set interfaces lo0 unit 0 family inet address 1.1.1.1/32
+
+    - name: vMX2 interface config
+      when: inventory_hostname == "vMX2"
+      junipernetworks.junos.junos_config:
+        lines:
+          - set interfaces ge-0/0/3 unit 0 family inet address 10.100.12.2/30
+          - set interfaces ge-0/0/0 unit 0 family inet address 10.100.24.1/30
+          - set interfaces lo0 unit 0 family inet address 2.2.2.2/32
+
+    - name: vMX4 interface config
+      when: inventory_hostname == "vMX4"
+      junipernetworks.junos.junos_config:
+        lines:
+          - set interfaces ge-0/0/0 unit 0 family inet address 10.100.24.2/30
+          - set interfaces ge-0/0/3 unit 0 family inet address 10.100.46.1/30
+          - set interfaces lo0 unit 0 family inet address 3.3.3.3/32
+
+    - name: vMX6 interface config
+      when: inventory_hostname == "vMX6"
+      junipernetworks.junos.junos_config:
+        lines:
+          - set interfaces ge-0/0/3 unit 0 family inet address 10.100.46.2/30
+          - set interfaces lo0 unit 0 family inet address 4.4.4.4/32

@@ -1,0 +1,17 @@
+- name: Configure firewall filters to allow OSPF, LDP, and ICMP
+  hosts: mpls_routers
+  gather_facts: no
+  tasks:
+    - name: Create firewall filter to allow OSPF, LDP, ICMP
+      junipernetworks.junos.junos_config:
+        lines:
+          - set firewall family inet filter ALLOW_PROTOCOLS term OSPF from protocol ospf
+          - set firewall family inet filter ALLOW_PROTOCOLS term OSPF then accept
+          - set firewall family inet filter ALLOW_PROTOCOLS term LDP from protocol tcp
+          - set firewall family inet filter ALLOW_PROTOCOLS term LDP from port 646
+          - set firewall family inet filter ALLOW_PROTOCOLS term LDP then accept
+          - set firewall family inet filter ALLOW_PROTOCOLS term ICMP from protocol icmp
+          - set firewall family inet filter ALLOW_PROTOCOLS term ICMP then accept
+          - set firewall family inet filter ALLOW_PROTOCOLS term DEFAULT then accept
+          - set interfaces ge-0/0/0 unit 0 family inet filter input ALLOW_PROTOCOLS
+          - set interfaces ge-0/0/3 unit 0 family inet filter input ALLOW_PROTOCOLS

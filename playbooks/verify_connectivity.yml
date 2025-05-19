@@ -1,0 +1,39 @@
+- name: Verify MPLS routing and end-to-end connectivity
+  hosts: mpls_routers
+  gather_facts: no
+  tasks:
+
+    - name: Show MPLS routing table (inet.3)
+      junipernetworks.junos.junos_command:
+        commands:
+          - show route table inet.3
+      register: inet3_output
+
+    - name: Print MPLS inet.3 table
+      debug:
+        var: inet3_output.stdout_lines
+
+    - name: Show MPLS LSPs
+      junipernetworks.junos.junos_command:
+        commands:
+          - show mpls lsp
+      register: lsp_output
+
+    - name: Print MPLS LSP information
+      debug:
+        var: lsp_output.stdout_lines
+
+- name: Ping from R1 to R4 loopback
+  hosts: r1
+  gather_facts: no
+  tasks:
+
+    - name: Ping R4 Loopback via MPLS
+      junipernetworks.junos.junos_command:
+        commands:
+          - ping 4.4.4.4 count 5
+      register: ping_output
+
+    - name: Show ping result
+      debug:
+        var: ping_output.stdout_lines
