@@ -3,15 +3,15 @@
   gather_facts: no
   tasks:
 
-    - name: Show MPLS routing table (inet.3)
+    - name: Show MPLS routing table 
       junos_command:
         commands:
-          - show route table inet.3
-      register: inet3_output
+          - show route table inet.0
+      register: inet0_output
 
-    - name: Print MPLS inet.3 table
+    - name: Print MPLS inet.0 table
       debug:
-        var: inet3_output.stdout_lines
+        var: inet0_output.stdout_lines
 
     - name: Show MPLS LSPs
       junos_command:

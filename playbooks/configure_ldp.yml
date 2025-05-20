@@ -8,7 +8,7 @@
       junos_config:
         lines:
           - set protocols ldp interface ge-0/0/0.0
-          - set protocols ldp router-id 1.1.1.1
+          - set protocols ldp transport-address 1.1.1.1
 
     - name: vMX2 LDP config
       when: inventory_hostname == "vMX2"
@@ -16,7 +16,7 @@
         lines:
           - set protocols ldp interface ge-0/0/0.0
           - set protocols ldp interface ge-0/0/1.0
-          - set protocols ldp router-id 2.2.2.2
+          - set protocols ldp transport-address 2.2.2.2
 
     - name: vMX4 LDP config
       when: inventory_hostname == "vMX4"
@@ -24,12 +24,12 @@
         lines:
           - set protocols ldp interface ge-0/0/0.0
           - set protocols ldp interface ge-0/0/1.0
-          - set protocols ldp router-id 3.3.3.3
+          - set protocols ldp transport-address 3.3.3.3
 
     - name: vMX6 LDP config
       when: inventory_hostname == "vMX6"
       junos_config:
         lines:
           - set protocols ldp interface ge-0/0/0.0
-          - set protocols ldp router-id 4.4.4.4
+          - set protocols ldp transport-address 4.4.4.4
 
