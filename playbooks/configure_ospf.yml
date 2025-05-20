@@ -5,14 +5,14 @@
 
     - name: vMX1 OSPF config
       when: inventory_hostname == "vMX1"
-      junipernetworks.junos.junos_config:
+      junos_config:
         lines:
           - set protocols ospf area 0 interface ge-0/0/0.0
           - set protocols ospf area 0 interface lo0.0
 
     - name: vMX2 OSPF config
       when: inventory_hostname == "vMX2"
-      junipernetworks.junos.junos_config:
+      junos_config:
         lines:
           - set protocols ospf area 0 interface ge-0/0/3.0
           - set protocols ospf area 0 interface ge-0/0/0.0
@@ -20,7 +20,7 @@
 
     - name: vMX4 OSPF config
       when: inventory_hostname == "vMX4"
-      junipernetworks.junos.junos_config:
+      junos_config:
         lines:
           - set protocols ospf area 0 interface ge-0/0/0.0
           - set protocols ospf area 0 interface ge-0/0/3.0
@@ -28,7 +28,7 @@
 
     - name: vMX6 OSPF config
       when: inventory_hostname == "vMX6"
-      junipernetworks.junos.junos_config:
+      junos_config:
         lines:
           - set protocols ospf area 0 interface ge-0/0/3.0
           - set protocols ospf area 0 interface lo0.0

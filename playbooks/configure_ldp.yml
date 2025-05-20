@@ -5,14 +5,14 @@
 
     - name: vMX1 LDP config
       when: inventory_hostname == "vMX1"
-      junipernetworks.junos.junos_config:
+      junos_config:
         lines:
           - set protocols ldp interface ge-0/0/0.0
           - set protocols ldp router-id 1.1.1.1
 
     - name: vMX2 LDP config
       when: inventory_hostname == "vMX2"
-      junipernetworks.junos.junos_config:
+      junos_config:
         lines:
           - set protocols ldp interface ge-0/0/0.0
           - set protocols ldp interface ge-0/0/1.0
@@ -20,7 +20,7 @@
 
     - name: vMX4 LDP config
       when: inventory_hostname == "vMX4"
-      junipernetworks.junos.junos_config:
+      junos_config:
         lines:
           - set protocols ldp interface ge-0/0/0.0
           - set protocols ldp interface ge-0/0/1.0
@@ -28,7 +28,7 @@
 
     - name: vMX6 LDP config
       when: inventory_hostname == "vMX6"
-      junipernetworks.junos.junos_config:
+      junos_config:
         lines:
           - set protocols ldp interface ge-0/0/0.0
           - set protocols ldp router-id 4.4.4.4

@@ -4,7 +4,7 @@
   tasks:
 
     - name: Show MPLS routing table (inet.3)
-      junipernetworks.junos.junos_command:
+      junos_command:
         commands:
           - show route table inet.3
       register: inet3_output
@@ -14,7 +14,7 @@
         var: inet3_output.stdout_lines
 
     - name: Show MPLS LSPs
-      junipernetworks.junos.junos_command:
+      junos_command:
         commands:
           - show mpls lsp
       register: lsp_output
@@ -23,13 +23,13 @@
       debug:
         var: lsp_output.stdout_lines
 
-- name: Ping from R1 to R4 loopback
-  hosts: r1
+- name: Ping from vMX1 to vMX4 loopback
+  hosts: vMX1
   gather_facts: no
   tasks:
 
-    - name: Ping R4 Loopback via MPLS
-      junipernetworks.junos.junos_command:
+    - name: Ping vMX4 Loopback via MPLS
+      junos_command:
         commands:
           - ping 4.4.4.4 count 5
       register: ping_output

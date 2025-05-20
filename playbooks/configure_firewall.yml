@@ -3,7 +3,7 @@
   gather_facts: no
   tasks:
     - name: Create firewall filter to allow OSPF, LDP, ICMP
-      junipernetworks.junos.junos_config:
+      junos_config:
         lines:
           - set firewall family inet filter ALLOW_PROTOCOLS term OSPF from protocol ospf
           - set firewall family inet filter ALLOW_PROTOCOLS term OSPF then accept

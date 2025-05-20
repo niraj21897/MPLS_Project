@@ -10,23 +10,30 @@
           - delete system syslog
           - delete protocols
           - delete routing-options autonomous-system
+          - delete interface lo0
+          - delete interface ge-0/0/0
+          - delete interface ge-0/0/1
+          - delete interface ge-0/0/2
+          - delete interface ge-0/0/3
+          - delete interface ge-0/0/4
+          - delete interface ge-0/0/5
 
-    - name: Collect Junos interface facts
-      junipernetworks.junos.junos_facts:
-        gather_subset:
-          - interfaces
-      register: intf_facts
+    #- name: Collect Junos interface facts
+    #  junipernetworks.junos.junos_facts:
+    #    gather_subset:
+    #      - interfaces
+    #  register: intf_facts
 
-    - name: Build list of non-fxp0 interfaces
-      set_fact:
-        interfaces_to_delete: "{{ intf_facts.ansible_facts.ansible_net_interfaces.keys() | reject('search', '^fxp0') | list }}"
+    #- name: Build list of non-fxp0 interfaces
+    #  set_fact:
+    #    interfaces_to_delete: "{{ intf_facts.ansible_facts.ansible_net_interfaces.keys() | reject('search', '^fxp0') | list }}"
 
-    - name: Display interfaces that will be deleted
-      debug:
-        msg: "Interfaces to delete: {{ interfaces_to_delete }}"
-      when: interfaces_to_delete | length > 0
+    #- name: Display interfaces that will be deleted
+    #  debug:
+    #    msg: "Interfaces to delete: {{ interfaces_to_delete }}"
+    #  when: interfaces_to_delete | length > 0
 
-    - name: Delete interfaces other than fxp0
-      junos_config:
-        lines: "{{ interfaces_to_delete | map('regex_replace', '^(.*)$', 'delete interfaces \\1') | list }}"
-      when: interfaces_to_delete | length > 0
+    #- name: Delete interfaces other than fxp0
+    #  junos_config:
+    #    lines: "{{ interfaces_to_delete | map('regex_replace', '^(.*)$', 'delete interfaces \\1') | list }}"
+    #  when: interfaces_to_delete | length > 0
