@@ -2,10 +2,21 @@
   hosts: all
   gather_facts: no
   tasks:
+    #- name: Run 'show version' to verify connectivity and display host
+    #  ansible.netcommon.cli_command:
+    #    command: show version
+    #  register: version_output
+
     - name: Run 'show version' to verify connectivity and display host
-      ansible.netcommon.cli_command:
-        command: show version
+      #junipernetworks.junos.junos_command:
+      junos_command:
+        commands:
+          - show system uptime
       register: version_output
+    #    provider:
+    #      host: "{{ ansible_host }}"
+    #      username: "{{ ansible_username }}"
+    #      password: "{{ ansible_password }}"
 
     - name: Display output
       debug:

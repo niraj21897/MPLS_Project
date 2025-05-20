@@ -4,51 +4,52 @@
   tasks:
 
     - name: Remove system syslog
-      junipernetworks.junos.junos_config:
-        lines:
-          - delete system syslog
+      juniper.junos.config:
+        retrieve: candidate
+        format: text
+        dest: Full-config.conf
 
-    - name: Remove system processes
-      junipernetworks.junos.junos_config:
-        lines:
-          - delete system processes
+  #  - name: Remove system processes
+  #    junipernetworks.junos.junos_config:
+  #      lines:
+  #        - delete system processes
 
-    - name: Remove interfaces
-      junipernetworks.junos.junos_config:
-        lines:
-          - delete routing-options static
+  #  - name: Remove interfaces
+  #    junipernetworks.junos.junos_config:
+  #      lines:
+  #        - delete routing-options static
 
-    - name: Remove default protocols configured
-      junipernetworks.junos.junos_config:
-        lines:
-          - delete protocols
+  #  - name: Remove default protocols configured
+  #    junipernetworks.junos.junos_config:
+  #      lines:
+  #        - delete protocols
 
-    - name: Remove default static route
-      junipernetworks.junos.junos_config:
-        lines:
-          - delete routing-options static
+  # - name: Remove default static route
+  #    junipernetworks.junos.junos_config:
+  #      lines:
+  #        - delete routing-options static
 
-    - name: Collect Junos interface facts
-      junipernetworks.junos.junos_facts:
-        gather_subset:
-          - interfaces
-      register: intf_facts
+  #  - name: Collect Junos interface facts
+  #    junipernetworks.junos.junos_facts:
+  #      gather_subset:
+  #        - interfaces
+  #    register: intf_facts
 
-    - name: Build list of non-fxp0 interfaces
-      set_fact:
-        interfaces_to_delete: "{{ intf_facts.ansible_facts.ansible_net_interfaces.keys() | reject('search', '^fxp0') | list }}"
+  #  - name: Build list of non-fxp0 interfaces
+  #    set_fact:
+  #      interfaces_to_delete: "{{ intf_facts.ansible_facts.ansible_net_interfaces.keys() | reject('search', '^fxp0') | list }}"
 
-    - name: Display interfaces that will be deleted
-      debug:
-        msg: "Interfaces to delete: {{ interfaces_to_delete }}"
-      when: interfaces_to_delete | length > 0
+  #  - name: Display interfaces that will be deleted
+  #    debug:
+  #      msg: "Interfaces to delete: {{ interfaces_to_delete }}"
+  #    when: interfaces_to_delete | length > 0
 
    # - name: Delete interfaces other than fxp0
    #   junipernetworks.junos.junos_config:
    #     lines: "{{ interfaces_to_delete | map('regex_replace', '^(.*)$', 'delete interfaces \\1') | list }}"
    #   when: interfaces_to_delete | length > 0
 
-    - name: Commit configuration
-      junipernetworks.junos.junos_commit:
-        comment: "Cleanup commit before MPLS config"
+   #  - name: Commit configuration
+   #   junipernetworks.junos.junos_commit:
+   #     comment: "Cleanup commit before MPLS config"
 
