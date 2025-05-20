@@ -22,3 +22,9 @@
       debug:
         var: version_output.stdout_lines[0]
 
+    - name: get device candidate information
+      junos_config:
+        retrieve: candidate
+        format: text
+        dest: "{{ ansible_host }}-full_config.conf"
+

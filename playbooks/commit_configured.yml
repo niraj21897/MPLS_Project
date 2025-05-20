@@ -1,0 +1,18 @@
+- name: Configure and commit testing
+  hosts: mpls_routers
+  gather_facts: no
+  tasks:
+    - name: load configure lines into device
+      junos_config:
+        lines:
+          - set interfaces ge-0/0/1 unit 0 description "Ansible Test 1"
+          - set vlans vlan01 description "Test 1 vlan"
+    #comment: update config
+
+    #- name: Perform confirm commit
+    #  junipernetworks.junos.junos_config:
+    #  confirm_commit: true
+
+    #- name: Commit configuration
+    #  junipernetworks.junos.junos_commit:
+    #    comment: "Test commit 1"
